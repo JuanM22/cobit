@@ -1,1 +1,10 @@
-<p>question-compo works!</p>
+<mat-card *ngFor="let item of questions">
+    {{ item.getQuestion() }}
+    <div class="radio-group">
+      <mat-radio-group aria-label="Select an option">
+        <mat-radio-button *ngFor="let value of scaleValues" value="{{ value }}">
+          {{ value }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </mat-card>

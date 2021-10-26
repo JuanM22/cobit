@@ -1,0 +1,13 @@
+.mat-card {
+  margin-bottom: 1%;
+}
+
+.radio-group {
+  float: right;
+  text-align: center;
+  width: 30%;
+}
+
+.radio-group .mat-radio-button {
+  padding: 0 1%;
+}

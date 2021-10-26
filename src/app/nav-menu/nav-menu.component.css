@@ -1,0 +1,24 @@
+.test-container {
+  padding: 1% 2% 0% 2%;
+  height: 100%;
+}
+
+.mat-sidenav-container {
+  height: 95%;
+}
+
+.mat-sidenav {
+  padding: 1% 0.5% 0 0.5%;
+}
+
+.mat-sidenav .mat-raised-button {
+  display: block;
+  margin-bottom: 0.2rem;
+  width: 100%;
+}
+
+.mat-sidenav-content {
+  background-color: #123;
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+}

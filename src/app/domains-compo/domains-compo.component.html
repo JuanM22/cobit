@@ -1,1 +1,20 @@
-<p>domains-compo works!</p>
+<section class="questions-container">
+  <h2>{{ domains[domainIndex] }}</h2>
+  <app-question-compo [domain]="domainIndex"></app-question-compo>
+  <button
+    mat-raised-button
+    color="warn"
+    id="next_btn"
+    (click)="updateIndex(domainIndex + 1)"
+  >
+    Siguiente domino
+  </button>
+  <button
+    mat-raised-button
+    color="accent"
+    id="prev_btn"
+    (click)="updateIndex(domainIndex - 1)"
+  >
+    Domino anterior
+  </button>
+</section>

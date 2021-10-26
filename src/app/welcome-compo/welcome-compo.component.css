@@ -1,0 +1,22 @@
+.init-info-container {
+  padding: 10% 5%;
+}
+
+.init-info-container .mat-card{
+    height: 20rem;
+}
+
+.mat-card-image {
+    position: absolute;
+    margin-right: 5%;
+    top: 10%;
+    right: 0;
+    width: 40%;
+    max-height: 35rem;
+    background-color: aqua;
+}
+
+.mat-form-field {
+  display: block;
+  width: 50%;
+}

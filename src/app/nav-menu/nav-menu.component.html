@@ -1,1 +1,13 @@
-<p>nav-menu works!</p>
+<section class="test-container">
+  <mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+      <button mat-raised-button color="primary" (click)="domainIndex=0">Planear y Organizar</button>
+      <button mat-raised-button color="primary" (click)="domainIndex=1">Adquirir e Implementar</button>
+      <button mat-raised-button color="primary" (click)="domainIndex=2">Entregar y Dar Soporte</button>
+      <button mat-raised-button color="primary" (click)="domainIndex=3">Evaluar y Monitorear</button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-domains-compo [domainIndex]="domainIndex"></app-domains-compo>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</section>

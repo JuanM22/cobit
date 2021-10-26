@@ -1,0 +1,12 @@
+.questions-container {
+  padding: 0 2% 5% 2%;
+}
+
+.questions-container h2 {
+  text-align: center;
+  color: white;
+}
+
+#next_btn {
+  float: right;
+}
