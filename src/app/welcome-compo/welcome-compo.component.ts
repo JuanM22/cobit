@@ -16,9 +16,9 @@ export class WelcomeCompoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  startTest(): void {
+  goToAssetsForm(): void {
     if(this.bussiness !== '' && this.auditor !== '') {
-      this.router.navigate(['/test']);
+      this.router.navigate(['/bussiness_assets']);
     } else {
       alert('Digite todos los datos');
     }

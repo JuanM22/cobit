@@ -1,6 +1,6 @@
 .test-container {
   padding: 1% 2% 0% 2%;
-  height: 100%;
+  height: 92%;
 }
 
 .mat-sidenav-container {
@@ -21,4 +21,12 @@
   background-color: #123;
   padding-top: 2rem;
   padding-bottom: 5rem;
+}
+
+.back-btn {
+  margin-bottom: 0.5rem;
+}
+
+#go-report-btn {
+  float: right;
 }

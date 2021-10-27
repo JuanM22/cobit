@@ -20,16 +20,16 @@
 }
 
 .form-header h2 {
-  margin: auto;
-  width: 65%;
-  color: white;
+  margin    : auto;
+  width     : 65%;
+  color     : white;
   text-align: right;
-  font-size: 2rem;
+  font-size : 2rem;
 }
 
 .edit-btn {
   background-color: rgb(27, 66, 104);
-  border-radius: 1rem;
-  padding: 0.2rem;
-  color: white;
+  border-radius   : 1rem;
+  padding         : 0.2rem;
+  color           : white;
 }

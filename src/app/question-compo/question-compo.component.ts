@@ -13,8 +13,15 @@ export class QuestionCompoComponent implements OnInit {
   @Input() editQuestions: boolean = true;
   questions: Question[] = []
 
-  scaleValues = [0, 1, 2, 3, 4, 5]
-  objectives = ['PO1', 'PO2', 'PO3', 'PO4', 'PO5', 'PO6', 'PO7', 'PO8', 'PO9', 'PO10'];
+  scales = [
+    { name: 'No Existente', value: 0 }, 
+    { name: 'Inicial / Ad Hoc', value: 1 }, 
+    { name: 'Repetible pero Intuitivo', value: 2 }, 
+    { name: 'Definido', value: 3 }, 
+    { name: 'Administrado y Medible', value: 4 }, 
+    { name: 'Optimizado', value: 5 }, 
+    ]
+  objectives = ['PO1'];
 
   constructor() {}
 
@@ -23,7 +30,7 @@ export class QuestionCompoComponent implements OnInit {
   }
 
   chargeQuestions(): void {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 3; i++) {
       this.questions.push(new Question('Pregunta ' + (i + 1), 0))
     }
   }

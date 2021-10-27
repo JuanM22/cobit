@@ -4,13 +4,11 @@
       <mat-panel-title>
         {{ objective }}
       </mat-panel-title>
-      <button
-        *ngIf="editQuestions"
-        mat-fab
-        color="warn"
-        class="add-btn"
-        (click)="$event.stopPropagation()"
-      >
+      <section class="maturity-panel" *ngIf="!editQuestions">
+        <mat-label>Nivel de madurez</mat-label>
+        <mat-progress-bar mode="determinate" value="0"></mat-progress-bar>
+      </section>
+      <button *ngIf="editQuestions" mat-fab color="warn" class="add-btn" (click)="$event.stopPropagation()">
         <mat-icon title="Añadir pregunta">add_box</mat-icon>
       </button>
     </mat-expansion-panel-header>
@@ -20,12 +18,9 @@
       </article>
       <div class="radio-group">
         <mat-radio-group aria-label="Select an option">
-          <mat-radio-button
-            *ngFor="let value of scaleValues"
-            value="{{ value }}"
-            (change)="updateScore(item, value)"
-          >
-            {{ value }}
+          <mat-radio-button *ngFor="let scale of scales" value="{{ scale.value }}" title={{scale.name}}
+            (change)="updateScore(item, scale.value)">
+            {{ scale.value }}
           </mat-radio-button>
         </mat-radio-group>
       </div>

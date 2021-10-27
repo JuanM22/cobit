@@ -1,7 +1,8 @@
 <section class="questions-container">
   <div class="form-header">
     <h2>{{ domains[domainIndex] }}</h2>
-    <mat-slide-toggle class="edit-btn" (change)="editQuestions = !editQuestions" [checked]="editQuestions">Editar Preguntas</mat-slide-toggle>
+    <mat-slide-toggle class="edit-btn" (change)="editQuestions = !editQuestions" [checked]="editQuestions">Editar
+      Preguntas</mat-slide-toggle>
   </div>
   <app-question-compo [domain]="domainIndex" [editQuestions]="editQuestions"></app-question-compo>
 </section>
