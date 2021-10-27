@@ -19,6 +19,9 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatRadioModule } from '@angular/material/radio'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatIconModule } from '@angular/material/icon'
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -47,7 +50,10 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSidenavModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSlideToggleModule,
+    MatExpansionModule,
+    MatIconModule
     //////////////////////
   ],
   providers: [],

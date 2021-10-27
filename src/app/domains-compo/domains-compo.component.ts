@@ -7,19 +7,21 @@ import { Component, Input, OnInit } from '@angular/core'
 })
 export class DomainsCompoComponent implements OnInit {
 
+  @Input() domainIndex: number = 0
+
   domains = [
     'Planear y Organizar',
     'Adquirir e Implementar',
     'Entregar y Dar Soporte',
     'Evaluar y Monitorear',
-  ]
-  
-  @Input() domainIndex: number = 0
+  ]  
 
   domainOneQuestions= [];
   domainTwoQuestions= [];
   domainThreeQuestions= [];
   domainFourQuestions= [];
+
+  editQuestions: boolean = true;
 
   constructor() {}
 
@@ -30,4 +32,5 @@ export class DomainsCompoComponent implements OnInit {
       this.domainIndex = index;
     }
   }
+
 }

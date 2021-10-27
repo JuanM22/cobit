@@ -1,5 +1,16 @@
 .mat-card {
   margin-bottom: 1%;
+  background-color: rgba(155, 256, 0, 0.7);
+  display: flex;
+}
+
+.question-container,
+.radio-group {
+  padding: 0.5rem;
+}
+
+.question-container {
+  width: 70%;
 }
 
 .radio-group {
@@ -10,4 +21,37 @@
 
 .radio-group .mat-radio-button {
   padding: 0 1%;
+}
+
+.options-container {
+  text-align: center;
+  width: 15%;
+}
+
+.options-container button {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.5rem;
+}
+
+.options-container .mat-icon {
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+}
+
+.add-btn {
+  margin-right: 2%;
+  width: 2rem;
+  height: 2rem;
+}
+
+.add-btn .mat-icon {
+  position: absolute;
+  top: 0.23rem;
+  left: 0.24rem;
+}
+
+.mat-expansion-panel-header {
+  padding: 0.5rem;
 }

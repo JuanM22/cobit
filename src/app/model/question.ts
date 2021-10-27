@@ -10,5 +10,6 @@ export class Question {
 
     getQuestion = () => this.question;
     getValue = () => this.value;
+    setValue = (value: number) => this.value = value;
 
 }
