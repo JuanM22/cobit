@@ -2,24 +2,24 @@
   <mat-expansion-panel *ngFor="let objective of objectives">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{ objective }}
+        {{ objective.name }}
       </mat-panel-title>
-      <section class="maturity-panel" *ngIf="!editQuestions">
+      <section class="maturity-panel" *ngIf="editQuestions">
         <mat-label>Nivel de madurez</mat-label>
-        <mat-progress-bar mode="determinate" value="0"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" value={{objective.average}}></mat-progress-bar>
       </section>
       <button *ngIf="editQuestions" mat-fab color="warn" class="add-btn" (click)="$event.stopPropagation()">
         <mat-icon title="Añadir pregunta">add_box</mat-icon>
       </button>
     </mat-expansion-panel-header>
-    <mat-card *ngFor="let item of questions">
+    <mat-card *ngFor="let item of objective.questions">
       <article class="question-container">
         {{ item.getQuestion() }}
       </article>
       <div class="radio-group">
         <mat-radio-group aria-label="Select an option">
           <mat-radio-button *ngFor="let scale of scales" value="{{ scale.value }}" title={{scale.name}}
-            (change)="updateScore(item, scale.value)">
+            (change)="updateScore(item, scale.value); updateObjectiveAverage(objective)">
             {{ scale.value }}
           </mat-radio-button>
         </mat-radio-group>

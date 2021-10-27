@@ -14,29 +14,36 @@ export class QuestionCompoComponent implements OnInit {
   questions: Question[] = []
 
   scales = [
-    { name: 'No Existente', value: 0 }, 
-    { name: 'Inicial / Ad Hoc', value: 1 }, 
-    { name: 'Repetible pero Intuitivo', value: 2 }, 
-    { name: 'Definido', value: 3 }, 
-    { name: 'Administrado y Medible', value: 4 }, 
-    { name: 'Optimizado', value: 5 }, 
-    ]
-  objectives = ['PO1'];
+    { name: 'No Existente', value: 0 },
+    { name: 'Inicial / Ad Hoc', value: 1 },
+    { name: 'Repetible pero Intuitivo', value: 2 },
+    { name: 'Definido', value: 3 },
+    { name: 'Administrado y Medible', value: 4 },
+    { name: 'Optimizado', value: 5 },
+  ]
 
-  constructor() {}
+  objectives = [{ name: 'PO1', average: 0, questions: [new Question('¿Pregunta 1?', 0)] }];
+
+  constructor() { }
 
   ngOnInit(): void {
-    this.chargeQuestions()
-  }
-
-  chargeQuestions(): void {
-    for (let i = 0; i < 3; i++) {
-      this.questions.push(new Question('Pregunta ' + (i + 1), 0))
-    }
   }
 
   updateList(): void {
     this.updateDomainList.emit()
+  }
+
+  updateObjectiveAverage(objective: any): void {
+    const selectedObjective = this.objectives.find(item => item.name == objective.name)
+    if(selectedObjective != undefined) {
+      let index = this.objectives.indexOf(selectedObjective);
+      let sum = 0;
+      selectedObjective?.questions.forEach(item => {
+        sum += item.getValue()
+      });
+      selectedObjective.average = (sum/selectedObjective.questions.length) * 20
+      this.objectives[index] = selectedObjective
+    }
   }
 
   updateScore(item: Question, value: number): void {

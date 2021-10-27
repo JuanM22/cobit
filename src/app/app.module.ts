@@ -28,6 +28,7 @@ import { MatTableModule } from '@angular/material/table'
 import { CdkColumnDef } from '@angular/cdk/table'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { ObjectiveServicesService } from './services/objective-services.service'
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -68,7 +69,8 @@ const routes: Routes = [
     MatProgressBarModule
     //////////////////////
   ],
-  providers: [CdkColumnDef],
+  providers: [CdkColumnDef,
+  ObjectiveServicesService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
