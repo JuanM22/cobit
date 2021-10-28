@@ -1,37 +1,46 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let objective of objectives">
+  <mat-expansion-panel *ngFor="let process of selectedDomain">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{ objective.name }}
+        {{ process.name }}
       </mat-panel-title>
-      <section class="maturity-panel" *ngIf="editQuestions">
+      <section class="maturity-panel" *ngIf="!editQuestions">
         <mat-label>Nivel de madurez</mat-label>
-        <mat-progress-bar mode="determinate" value={{objective.average}}></mat-progress-bar>
+        <mat-progress-bar mode="determinate" value="{{process.average}}"></mat-progress-bar>
       </section>
-      <button *ngIf="editQuestions" mat-fab color="warn" class="add-btn" (click)="$event.stopPropagation()">
-        <mat-icon title="Añadir pregunta">add_box</mat-icon>
-      </button>
     </mat-expansion-panel-header>
-    <mat-card *ngFor="let item of objective.questions">
-      <article class="question-container">
-        {{ item.getQuestion() }}
-      </article>
-      <div class="radio-group">
-        <mat-radio-group aria-label="Select an option">
-          <mat-radio-button *ngFor="let scale of scales" value="{{ scale.value }}" title={{scale.name}}
-            (change)="updateScore(item, scale.value); updateObjectiveAverage(objective)">
-            {{ scale.value }}
-          </mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <div *ngIf="editQuestions" class="options-container">
-        <button mat-fab color="primary">
-          <mat-icon title="Editar">edit</mat-icon>
-        </button>
-        <button mat-fab color="accent">
-          <mat-icon title="Eliminar">delete</mat-icon>
-        </button>
-      </div>
-    </mat-card>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let objective of process.objectives">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ objective.name }}
+          </mat-panel-title>
+          <button *ngIf="editQuestions" mat-fab color="warn" class="add-btn" (click)="$event.stopPropagation(); openDialog('save', objective);">
+            <mat-icon title="Añadir pregunta">add_box</mat-icon>
+          </button>
+        </mat-expansion-panel-header>
+        <mat-card *ngFor="let item of objective.questions">
+          <article class="question-container">
+            {{ item.question }}
+          </article>
+          <div class="radio-group" *ngIf="!editQuestions">
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button *ngFor="let scale of scales" value="{{ scale.value }}" title={{scale.name}}
+                (change)="updateScore(item, scale.value); updateProcessAverage(process)">
+                {{ scale.value }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div *ngIf="editQuestions" class="options-container">
+            <button mat-fab color="primary" (click)="$event.stopPropagation(); openDialog('edit', objective, item);">
+              <mat-icon title="Editar">edit</mat-icon>
+            </button>
+            <button mat-fab color="accent" (click)="$event.stopPropagation(); deleteQuestion(item, objective);deleteQuestion">
+              <mat-icon title="Eliminar">delete</mat-icon>
+            </button>
+          </div>
+        </mat-card>
+      </mat-expansion-panel>
+    </mat-accordion>
   </mat-expansion-panel>
 </mat-accordion>

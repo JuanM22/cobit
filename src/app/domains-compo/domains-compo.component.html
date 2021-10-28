@@ -4,5 +4,5 @@
     <mat-slide-toggle class="edit-btn" (change)="editQuestions = !editQuestions" [checked]="editQuestions">Editar
       Preguntas</mat-slide-toggle>
   </div>
-  <app-question-compo [domain]="domainIndex" [editQuestions]="editQuestions"></app-question-compo>
+  <app-question-compo [domain]="domainIndex + 1" [editQuestions]="editQuestions"></app-question-compo>
 </section>

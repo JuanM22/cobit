@@ -1,0 +1,16 @@
+<section class="question-form">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{title}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field appearance="fill">
+                <mat-label>Pregunta</mat-label>
+                <input matInput [(ngModel)]="questionText" />
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="saveQuestion()" [disabled]="savedOrUpdated">Guardar</button>
+        </mat-card-actions>
+    </mat-card>
+</section>

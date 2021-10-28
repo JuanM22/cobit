@@ -1,0 +1,7 @@
+.question-form {
+    width: 50rem;
+}
+
+.question-form .mat-form-field {
+    width: 100%;
+}

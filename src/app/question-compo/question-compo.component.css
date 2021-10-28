@@ -16,7 +16,7 @@
 .radio-group {
   float: right;
   text-align: center;
-  width: 30%;
+  width: 40%;
 }
 
 .radio-group .mat-radio-button {
@@ -24,8 +24,10 @@
 }
 
 .options-container {
-  text-align: center;
-  width: 15%;
+  position: absolute;
+  text-align: right;
+  width: 10%;
+  right: 0;
 }
 
 .options-container button {
