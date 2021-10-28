@@ -14,7 +14,7 @@ export class ModalFormCompoComponent implements OnInit {
   title = ''
   questionText = ''
   objective: Objective = new Objective();
-  question: Question = new Question('', 0)
+  question: Question = new Question('', -1)
   questionIndex = -1
   savedOrUpdated: boolean = false
 
@@ -36,9 +36,9 @@ export class ModalFormCompoComponent implements OnInit {
       if (this.questionText != '') {
         if (this.question != undefined) {
           this.question.question = this.questionText
-          this.question.value = 0
+          this.question.value = -1
         } else {
-          this.question = new Question(this.questionText, 0)
+          this.question = new Question(this.questionText, -1)
         }
         if (this.questionIndex != -1) this.objective.questions[this.questionIndex] = this.question
         else this.objective.questions.push(this.question)

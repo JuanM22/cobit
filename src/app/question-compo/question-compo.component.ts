@@ -36,6 +36,7 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
   }]
 
   scales = [
+    { name: 'No Aplica', value: -1 },
     { name: 'No Existente', value: 0 },
     { name: 'Inicial / Ad Hoc', value: 1 },
     { name: 'Repetible pero Intuitivo', value: 2 },
@@ -74,19 +75,33 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
     this.updateDomainList.emit()
   }
 
-  updateProcessAverage(process: any): void {
+  updateProcessAverage(process: Process): void {
     let sum = 0;
     let total = 0;
+    let totalAverage = 0;
     for (let objective of process.objectives) {
-      objective.questions.forEach((item: any) => {
-        sum += item.getValue()
+      objective.questions.forEach((item) => {
+        if (item.value != -1) sum += item.value
       });
-      if (objective.questions.length > 0) {
-        total += (sum / objective.questions.length);
+      const questionList = objective.questions.filter(item => item.value != -1)
+      if (questionList.length > 0) {
+        totalAverage += (sum / questionList.length)
       }
-      sum = 0;
+      sum = 0
     }
-    process.average = (total / process.objectives.length)
+    if (totalAverage > 0) {
+      let objectivesAnswered = 0;
+      process.objectives.forEach(item => {
+        const answered = item.questions.filter((q => q.value != -1));
+        if(answered.length > 0) objectivesAnswered++
+      })
+      // process.average = ((totalAverage * 20) / objectivesAnswered) // Percentage //
+      process.average = Math.floor(totalAverage / objectivesAnswered) // Maturity Scale //
+      console.log((totalAverage / objectivesAnswered))
+      console.log(Math.floor(totalAverage / objectivesAnswered))
+    } else {
+      process.average = 0
+    }
   }
 
   updateScore(item: Question, value: number): void {
@@ -108,8 +123,8 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
     })
   }
 
-  deleteQuestion(question : Question, objective: Objective): void {
-    if(confirm('¿Esta seguro de que desea eliminar la pregunta?')) {
+  deleteQuestion(question: Question, objective: Objective): void {
+    if (confirm('¿Esta seguro de que desea eliminar la pregunta?')) {
       const index = objective.questions.indexOf(question);
       objective.questions.splice(index, 1);
       this.objectiveServices.save(objective).subscribe(res => {

@@ -21,7 +21,7 @@ export class DomainsCompoComponent implements OnInit {
   domainThreeQuestions= [];
   domainFourQuestions= [];
 
-  editQuestions: boolean = true;
+  editQuestions: boolean = false;
 
   constructor() {}
 

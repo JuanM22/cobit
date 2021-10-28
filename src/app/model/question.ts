@@ -1,7 +1,7 @@
 export class Question {
 
     question = '';
-    value = 0;
+    value = -1;
 
     constructor(question: string, value: number) {
         this.question = question;

@@ -6,7 +6,8 @@
       </mat-panel-title>
       <section class="maturity-panel" *ngIf="!editQuestions">
         <mat-label>Nivel de madurez</mat-label>
-        <mat-progress-bar mode="determinate" value="{{process.average}}"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" value="{{process.average * 20}}"></mat-progress-bar>
+        ({{process.average}})
       </section>
     </mat-expansion-panel-header>
     <mat-accordion>
@@ -26,7 +27,7 @@
           <div class="radio-group" *ngIf="!editQuestions">
             <mat-radio-group aria-label="Select an option">
               <mat-radio-button *ngFor="let scale of scales" value="{{ scale.value }}" title={{scale.name}}
-                (change)="updateScore(item, scale.value); updateProcessAverage(process)">
+                (change)="updateScore(item, scale.value); updateProcessAverage(process)" [checked]="scale.value == -1">
                 {{ scale.value }}
               </mat-radio-button>
             </mat-radio-group>
