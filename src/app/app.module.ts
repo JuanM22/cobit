@@ -45,6 +45,7 @@ const routes: Routes = [
   { path: 'home', component: WelcomeCompoComponent },
   { path: 'bussiness_assets', component: BussinessAssetsComponent },
   { path: 'test', component: NavMenuComponent },
+  { path: 'report', component: ReportCompoComponent }
 ]
 
 @NgModule({
