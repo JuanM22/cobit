@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core'
 import { Domain } from '../model/domain';
 import { IReport } from '../interfaces/IReport';
-import { Process } from '../model/process';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CustomToastCompoComponent } from '../custom-toast-compo/custom-toast-compo.component';
 import { Report } from '../model/report';
 import { ReportService } from '../services/report.service';
 
@@ -27,8 +28,8 @@ export class DomainsCompoComponent implements OnInit, OnChanges, IReport {
 
   report: Report = new Report()
 
-  constructor(private reportServices: ReportService) { }
-  
+  constructor(private _snackBar: MatSnackBar, private reportServices: ReportService) { }
+
   ngOnInit(): void {
     this.getReport()
   }
@@ -38,7 +39,7 @@ export class DomainsCompoComponent implements OnInit, OnChanges, IReport {
   }
 
   updateList(message: string): void {
-    if(message == 'updated') this.updateReport()
+    if (message == 'updated') this.updateReport()
   }
 
   updateReport(): void {
@@ -56,6 +57,17 @@ export class DomainsCompoComponent implements OnInit, OnChanges, IReport {
         this.currentDomain = this.report.domains[this.domainIndex]
       })
     }
+  }
+
+  openPopUpMessage(message: string) {
+    this._snackBar.openFromComponent(CustomToastCompoComponent, {
+      horizontalPosition: 'end',
+      verticalPosition: 'bottom',
+      duration: 60000,
+      data: {
+        message: message
+      }
+    });
   }
 
 }

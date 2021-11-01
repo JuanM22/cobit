@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CustomToastCompoComponent } from '../custom-toast-compo/custom-toast-compo.component';
 import { ModalFormCompoComponent } from '../modal-form-compo/modal-form-compo.component';
 import { Domain } from '../model/domain';
 import { Objective } from '../model/objective';
@@ -28,7 +30,7 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
     { name: 'Optimizado', value: 5 },
   ]
 
-  constructor(public dialog: MatDialog, private objectiveServices: ObjectiveServicesService) { }
+  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar, private objectiveServices: ObjectiveServicesService) { }
 
   ngOnInit(): void {
   }
@@ -118,9 +120,21 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
       const index = objective.questions.indexOf(question);
       objective.questions.splice(index, 1);
       this.objectiveServices.save(objective).subscribe(res => {
-        console.log(res.data);
+        const message = (res.data === 'success') ? 'La pregunta ha sido removida' : 'Error al remover la pregunta'
+        this.openPopUpMessage(message)
       });
     }
+  }
+
+  openPopUpMessage(message: string) {
+    this._snackBar.openFromComponent(CustomToastCompoComponent, {
+      horizontalPosition: 'end',
+      verticalPosition: 'bottom',
+      duration: 5000,
+      data: {
+        message: message
+      }
+    });
   }
 
 }

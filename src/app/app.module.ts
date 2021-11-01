@@ -21,6 +21,7 @@ import { CdkColumnDef } from '@angular/cdk/table'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 /////////////////////////////////////////
 
 //// App Components ////
@@ -38,6 +39,7 @@ import { ModalFormCompoComponent } from './modal-form-compo/modal-form-compo.com
 //// Services ////
 import { ObjectiveServicesService } from './services/objective-services.service';
 import { ReportService } from './services/report.service';
+import { CustomToastCompoComponent } from './custom-toast-compo/custom-toast-compo.component';
 /////////////////////////////////////////
 
 
@@ -59,6 +61,7 @@ const routes: Routes = [
     WelcomeCompoComponent,
     BussinessAssetsComponent,
     ModalFormCompoComponent,
+    CustomToastCompoComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,8 @@ const routes: Routes = [
     MatTableModule,
     DragDropModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
     //////////////////////
   ],
   providers: [CdkColumnDef,

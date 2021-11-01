@@ -1,0 +1,15 @@
+.toast .mat-raised-button {
+    border    : 1px solid orangered;
+    background: rgba(255, 255, 255, 0);
+    color     : white;
+    position  : fixed;
+    top       : 0.4rem;
+    right     : 0.5rem;
+}
+
+.toast .mat-raised-button:hover {
+    background-color: orangered;
+    position        : fixed;
+    top             : 0.4rem;
+    right           : 0.5rem;
+}
