@@ -45,9 +45,9 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
       for (let process of this.currentDomain.processes) {
         const genericObjectives = objectives.filter((item) => item.process == process.processId)
         // if (process.objectives.length == 0) {
-          process.objectives = genericObjectives
+        process.objectives = genericObjectives
         // } else {
-          // this.updateQuestions(genericObjectives, process.objectives)
+        // this.updateQuestions(genericObjectives, process.objectives)
         // }
       }
       // this.updateList()
@@ -58,7 +58,7 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
     for (let i = 0; i < genericObjectives.length; i++) {
       const questions = genericObjectives[i].questions;
       const oldQuestions = objectives[i].questions;
-      if(questions.length > oldQuestions.length) {
+      if (questions.length > oldQuestions.length) {
         objectives[i].questions.push(...questions.splice(oldQuestions.length, questions.length));
       }
     }

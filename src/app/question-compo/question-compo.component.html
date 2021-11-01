@@ -26,7 +26,7 @@
           </article>
           <div class="radio-group" *ngIf="!editQuestions">
             <mat-radio-group aria-label="Select an option">
-              <mat-radio-button *ngFor="let scale of scales" value="{{ item.value }}" title={{scale.name}}
+              <mat-radio-button *ngFor="let scale of scales" value={{scale.value}} title={{scale.name}}
                 (change)="updateScore(item, scale.value); updateProcessAverage(process)" [checked]="scale.value == item.value">
                 {{ scale.value }}
               </mat-radio-button>
