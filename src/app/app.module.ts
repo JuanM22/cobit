@@ -37,6 +37,7 @@ import { ModalFormCompoComponent } from './modal-form-compo/modal-form-compo.com
 
 //// Services ////
 import { ObjectiveServicesService } from './services/objective-services.service';
+import { ReportService } from './services/report.service';
 /////////////////////////////////////////
 
 
@@ -84,7 +85,8 @@ const routes: Routes = [
     //////////////////////
   ],
   providers: [CdkColumnDef,
-    ObjectiveServicesService],
+    ObjectiveServicesService,
+    ReportService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

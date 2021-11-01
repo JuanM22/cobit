@@ -26,7 +26,7 @@
             </mat-card>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="2">
-            <mat-table [dataSource]="bussinessAssets" cdkDropList #assetsTable class="mat-elevation-z8 field-table"
+            <mat-table [dataSource]="report.bussiness_assets" cdkDropList #assetsTable class="mat-elevation-z8 field-table"
                 (cdkDropListDropped)="drop($event)">
                 <ng-container matColumnDef="name">
                     <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
