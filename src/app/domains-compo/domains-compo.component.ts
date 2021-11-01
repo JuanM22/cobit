@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core'
+import { Domain } from '../model/domain';
 import { IReport } from '../interfaces/IReport';
+import { Process } from '../model/process';
 import { Report } from '../model/report';
 import { ReportService } from '../services/report.service';
 
@@ -8,30 +10,35 @@ import { ReportService } from '../services/report.service';
   templateUrl: './domains-compo.component.html',
   styleUrls: ['./domains-compo.component.css'],
 })
-export class DomainsCompoComponent implements OnInit, IReport {
+export class DomainsCompoComponent implements OnInit, OnChanges, IReport {
 
   @Input() domainIndex: number = 0
 
-  domains = [
+  domainsLabels = [
     'Planear y Organizar',
     'Adquirir e Implementar',
     'Entregar y Dar Soporte',
     'Evaluar y Monitorear',
   ]
 
-  domainOneQuestions = [];
-  domainTwoQuestions = [];
-  domainThreeQuestions = [];
-  domainFourQuestions = [];
+  currentDomain = new Domain()
 
   editQuestions: boolean = false;
 
   report: Report = new Report()
 
   constructor(private reportServices: ReportService) { }
-
+  
   ngOnInit(): void {
     this.getReport()
+  }
+
+  ngOnChanges(_changes: SimpleChanges): void {
+    this.currentDomain = this.report.domains[this.domainIndex]
+  }
+
+  updateList(message: string): void {
+    if(message == 'updated') this.updateReport()
   }
 
   updateReport(): void {
@@ -44,13 +51,10 @@ export class DomainsCompoComponent implements OnInit, IReport {
     const reportId = localStorage.getItem('reportId')
     this.report.reportId = (reportId === null) ? 0 : parseInt(reportId);
     if (this.report.reportId > 0) {
-      this.reportServices.getReport(this.report.reportId).subscribe(res => this.report = res)
-    }
-  }
-
-  updateIndex(index: number): void {
-    if (index < this.domains.length && index >= 0) {
-      this.domainIndex = index;
+      this.reportServices.getReport(this.report.reportId).subscribe(res => {
+        this.report = res;
+        this.currentDomain = this.report.domains[this.domainIndex]
+      })
     }
   }
 

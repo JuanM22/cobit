@@ -1,5 +1,5 @@
+import { Domain } from "./domain";
 import { BussinessAsset } from "./bussiness-asset";
-import { Process } from "./process";
 
 export class Report {
 
@@ -7,7 +7,7 @@ export class Report {
     bussiness_name: string = '';
     auditor_name: string = '';
     bussiness_assets: BussinessAsset[] = [];
-    processes: Process[] = []
+    domains: Domain[] = []
 
 
 }

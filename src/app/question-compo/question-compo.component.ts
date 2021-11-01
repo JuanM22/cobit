@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog';
 import { ModalFormCompoComponent } from '../modal-form-compo/modal-form-compo.component';
+import { Domain } from '../model/domain';
 import { Objective } from '../model/objective';
 import { Process } from '../model/process';
 import { Question } from '../model/question'
@@ -13,27 +14,9 @@ import { ObjectiveServicesService } from '../services/objective-services.service
 })
 export class QuestionCompoComponent implements OnInit, OnChanges {
 
-  @Output() updateDomainList = new EventEmitter<[Question]>()
-  @Input() domain: number = 1
+  @Output() updateProcessesList = new EventEmitter<string>()
+  @Input() currentDomain = new Domain()
   @Input() editQuestions: boolean = true;
-
-  domains = ['Planear y Organizar', 'Adquirir e Implementar', 'Entregar y Dar Soporte', 'Evaluar y Monitorear']
-
-  processes = [{
-    id: 1,
-    items: [
-      new Process('PO1', 'PO1 Definir un Plan Estratégico de TI'),
-      new Process('PO2', 'PO2 Definir la Arquitectura de la Información'),
-      new Process('PO3', 'PO3 Determinar la Dirección Tecnológica'),
-      new Process('PO4', 'PO4 Definir los Procesos, Organización y Relaciones de TI'),
-      new Process('PO5', 'PO5 Administrar la Inversión en TI'),
-      new Process('PO6', 'PO6 Comunicar las Aspiraciones y la Dirección de la Gerencia'),
-      new Process('PO7', 'PO7 Administrar Recursos Humanos de TI'),
-      new Process('PO8', 'PO8 Administrar la Calidad'),
-      new Process('PO9', 'PO9 Evaluar y Administrar los Riesgos de TI'),
-      new Process('PO10', 'PO10 Administrar Proyectos')
-    ]
-  }]
 
   scales = [
     { name: 'No Aplica', value: -1 },
@@ -45,39 +28,46 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
     { name: 'Optimizado', value: 5 },
   ]
 
-  selectedDomain: any[] = []
-
   constructor(public dialog: MatDialog, private objectiveServices: ObjectiveServicesService) { }
 
   ngOnInit(): void {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    const process = this.processes.find((item) => item.id == changes.domain?.currentValue)
-    if (process != undefined) {
-      this.selectedDomain = process.items;
-    }
-    this.listObjectives()
+  ngOnChanges(_changes: SimpleChanges) {
+    if (this.currentDomain != undefined) this.listObjectives()
   }
 
   listObjectives(): void {
-    this.objectiveServices.list(this.domain).subscribe(res => {
-      const objectives = res; // dominios y procesos //
-      for (let process of this.processes) {
-        for (let proc of process.items) {
-          proc.objectives = objectives.filter((item) => item.process == proc.processId)
-        }
+    this.objectiveServices.list(this.currentDomain.id).subscribe(res => {
+      const objectives = res; // dominios y procesos génericos //
+      for (let process of this.currentDomain.processes) {
+        const genericObjectives = objectives.filter((item) => item.process == process.processId)
+        // if (process.objectives.length == 0) {
+          process.objectives = genericObjectives
+        // } else {
+          // this.updateQuestions(genericObjectives, process.objectives)
+        // }
       }
+      // this.updateList()
     })
   }
 
+  updateQuestions(genericObjectives: Objective[], objectives: Objective[]): void {
+    for (let i = 0; i < genericObjectives.length; i++) {
+      const questions = genericObjectives[i].questions;
+      const oldQuestions = objectives[i].questions;
+      if(questions.length > oldQuestions.length) {
+        objectives[i].questions.push(...questions.splice(oldQuestions.length, questions.length));
+      }
+    }
+  }
+
   updateList(): void {
-    this.updateDomainList.emit()
+    this.updateProcessesList.emit('updated')
   }
 
   updateProcessAverage(process: Process): void {
     let sum = 0;
-    let total = 0;
     let totalAverage = 0;
     for (let objective of process.objectives) {
       objective.questions.forEach((item) => {
@@ -93,15 +83,16 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
       let objectivesAnswered = 0;
       process.objectives.forEach(item => {
         const answered = item.questions.filter((q => q.value != -1));
-        if(answered.length > 0) objectivesAnswered++
+        if (answered.length > 0) objectivesAnswered++
       })
       // process.average = ((totalAverage * 20) / objectivesAnswered) // Percentage //
       process.average = Math.floor(totalAverage / objectivesAnswered) // Maturity Scale //
-      console.log((totalAverage / objectivesAnswered))
-      console.log(Math.floor(totalAverage / objectivesAnswered))
+      // console.log((totalAverage / objectivesAnswered))
+      // console.log(Math.floor(totalAverage / objectivesAnswered))
     } else {
       process.average = 0
     }
+    this.updateList()
   }
 
   updateScore(item: Question, value: number): void {
@@ -119,7 +110,6 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
       data: data
     });
     dialogRef.afterClosed().subscribe(() => {
-
     })
   }
 

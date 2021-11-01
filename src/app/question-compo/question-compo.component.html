@@ -1,5 +1,5 @@
-<mat-accordion>
-  <mat-expansion-panel *ngFor="let process of selectedDomain">
+<mat-accordion *ngIf="currentDomain != undefined">
+  <mat-expansion-panel *ngFor="let process of currentDomain.processes">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{ process.name }}
@@ -26,8 +26,8 @@
           </article>
           <div class="radio-group" *ngIf="!editQuestions">
             <mat-radio-group aria-label="Select an option">
-              <mat-radio-button *ngFor="let scale of scales" value="{{ scale.value }}" title={{scale.name}}
-                (change)="updateScore(item, scale.value); updateProcessAverage(process)" [checked]="scale.value == -1">
+              <mat-radio-button *ngFor="let scale of scales" value="{{ item.value }}" title={{scale.name}}
+                (change)="updateScore(item, scale.value); updateProcessAverage(process)" [checked]="scale.value == item.value">
                 {{ scale.value }}
               </mat-radio-button>
             </mat-radio-group>
