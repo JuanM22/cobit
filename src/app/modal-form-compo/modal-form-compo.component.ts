@@ -41,14 +41,13 @@ export class ModalFormCompoComponent implements OnInit {
       if (this.questionText != '') {
         if (this.question != undefined) {
           this.question.question = this.questionText
-          this.question.value = -1
         } else {
           this.question = new Question(this.questionText, -1)
         }
         if (this.questionIndex != -1) this.objective.questions[this.questionIndex] = this.question
         else this.objective.questions.push(this.question)
         this.objectivesServices.save(this.objective).subscribe(res => {
-          this.dialogRef.close()
+          this.dialogRef.close({ data: this.question.question })
           const saveMessage = (res.data === 'success') ? 'La pregunta ha sido agregada' : 'Error al agregar la pregunta'
           const updateMessage = (res.data === 'success') ? 'La pregunta ha sido modificada' : 'Error al modificar la pregunta'
           this.openPopUpMessage((this.operation == 'save') ? saveMessage : updateMessage)

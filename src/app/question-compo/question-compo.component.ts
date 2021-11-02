@@ -14,8 +14,7 @@ import { ObjectiveServicesService } from '../services/objective-services.service
   templateUrl: './question-compo.component.html',
   styleUrls: ['./question-compo.component.css'],
 })
-// export class QuestionCompoComponent implements OnInit, OnChanges {
-export class QuestionCompoComponent implements OnInit {
+export class QuestionCompoComponent implements OnInit, OnChanges {
 
   @Output() updateProcessesList = new EventEmitter<string>()
   @Input() currentDomain = new Domain()
@@ -101,17 +100,32 @@ export class QuestionCompoComponent implements OnInit {
     item.value = value;
   }
 
-  openDialog(operation: string, objective: any, question?: Question): void {
+  openDialog(operation: string, objective: Objective, question?: Question): void {
     const modalTitle = (operation == 'save') ? 'Nueva pregunta' : 'Editar pregunta'
     const data = {
       title: modalTitle,
       objective: objective,
-      question: question
+      question: question,
+      currentDomain: this.currentDomain
     }
     const dialogRef = this.dialog.open(ModalFormCompoComponent, {
       data: data
     });
-    dialogRef.afterClosed().subscribe(() => {
+    dialogRef.afterClosed().subscribe((res) => {
+      if (operation == 'edit') {
+        const process = this.currentDomain.processes.find(item => item.processId == objective.process)
+        if (process != undefined) {
+          const updatedObjective = process.objectives.find(item => item.objectiveId == objective.objectiveId);
+          if (updatedObjective != undefined) {
+            if (question != undefined) {
+              const qIndex = updatedObjective.questions.indexOf(question)
+              const q = updatedObjective.questions[qIndex]
+              q.question = res.data
+              this.updateList()
+            }
+          }
+        }
+      }
     })
   }
 
