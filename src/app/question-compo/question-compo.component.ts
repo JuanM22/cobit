@@ -14,7 +14,8 @@ import { ObjectiveServicesService } from '../services/objective-services.service
   templateUrl: './question-compo.component.html',
   styleUrls: ['./question-compo.component.css'],
 })
-export class QuestionCompoComponent implements OnInit, OnChanges {
+// export class QuestionCompoComponent implements OnInit, OnChanges {
+export class QuestionCompoComponent implements OnInit {
 
   @Output() updateProcessesList = new EventEmitter<string>()
   @Input() currentDomain = new Domain()
@@ -44,13 +45,12 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
       const objectives = res; // dominios y procesos génericos //
       for (let process of this.currentDomain.processes) {
         const genericObjectives = objectives.filter((item) => item.process == process.processId)
-        // if (process.objectives.length == 0) {
-        process.objectives = genericObjectives
-        // } else {
-        // this.updateQuestions(genericObjectives, process.objectives)
-        // }
+        if (process.objectives.length == 0) {
+          process.objectives = genericObjectives
+        } else {
+          this.updateQuestions(genericObjectives, process.objectives)
+        }
       }
-      // this.updateList()
     })
   }
 
@@ -115,13 +115,14 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
     })
   }
 
-  deleteQuestion(question: Question, objective: Objective): void {
+  deleteQuestion(question: Question, objective: Objective, process?: Process): void {
     if (confirm('¿Esta seguro de que desea eliminar la pregunta?')) {
       const index = objective.questions.indexOf(question);
       objective.questions.splice(index, 1);
       this.objectiveServices.save(objective).subscribe(res => {
         const message = (res.data === 'success') ? 'La pregunta ha sido removida' : 'Error al remover la pregunta'
         this.openPopUpMessage(message)
+        if (process != undefined) this.updateProcessAverage(process)
       });
     }
   }

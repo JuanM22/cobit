@@ -35,6 +35,7 @@ export class DomainsCompoComponent implements OnInit, OnChanges, IReport {
   }
 
   ngOnChanges(_changes: SimpleChanges): void {
+    console.log('domains compo')
     this.currentDomain = this.report.domains[this.domainIndex]
   }
 
