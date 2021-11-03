@@ -41,6 +41,7 @@ export class ModalFormCompoComponent implements OnInit {
       if (this.questionText != '') {
         if (this.question != undefined) {
           this.question.question = this.questionText
+          this.question.value = -1
         } else {
           this.question = new Question(this.questionText, -1)
         }

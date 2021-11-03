@@ -12,9 +12,6 @@
         <mat-label>Nombre del auditor</mat-label>
         <input matInput [(ngModel)]="report.auditor_name"/>
       </mat-form-field>
-      <p>
-        Descripción
-      </p>
       <img
         mat-card-image
         src="https://cdn.lynda.com/course/585257/585257-637286214140837235-16x9.jpg"
@@ -22,7 +19,7 @@
       />
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="goToAssetsForm()">Iniciar Evaluación</button>
+      <button mat-raised-button color="primary" (click)="goToAssetsForm()" id="start-btn">Iniciar Evaluación</button>
     </mat-card-actions>
   </mat-card>
 </div>

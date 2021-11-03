@@ -101,6 +101,7 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
   }
 
   openDialog(operation: string, objective: Objective, question?: Question): void {
+    const qValue = (question != undefined) ? question.value : 0
     const modalTitle = (operation == 'save') ? 'Nueva pregunta' : 'Editar pregunta'
     const data = {
       title: modalTitle,
@@ -121,6 +122,7 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
               const qIndex = updatedObjective.questions.indexOf(question)
               const q = updatedObjective.questions[qIndex]
               q.question = res.data
+              q.value = qValue
               this.updateList()
             }
           }

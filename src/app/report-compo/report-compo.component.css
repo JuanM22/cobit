@@ -1,8 +1,9 @@
 .report-container {
-    position: absolute;
-    width   : 90%;
-    height  : 100%;
-    padding : 3% 5%;
+    position  : absolute;
+    width     : 90%;
+    height    : 100%;
+    padding   : 3% 5%;
+    margin-top: 0.5rem;
 }
 
 #generate-report-btn {
@@ -152,4 +153,11 @@ td {
 .assets-table thead {
     background-color: rgb(14, 12, 12);
     color           : white;
+}
+
+#init-btn {
+    position   : absolute;
+    margin-left: 5%;
+    margin-top : 0.3rem;
+    z-index    : 9999;
 }

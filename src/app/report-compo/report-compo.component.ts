@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../services/report.service';
 import { Report } from '../model/report';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-report-compo',
@@ -10,10 +11,10 @@ import { Report } from '../model/report';
 export class ReportCompoComponent implements OnInit {
 
   commentary = 'Los procesos con nivel de madurez entre 0 y 2 deben mejorarse'
-  showPanel = true
+  showPanel = false
   report: Report = new Report()
 
-  constructor(private reportServices: ReportService) { }
+  constructor(private router: Router, private reportServices: ReportService) { }
 
   ngOnInit(): void {
     this.getReport()
@@ -27,6 +28,10 @@ export class ReportCompoComponent implements OnInit {
         this.report = res;
       })
     }
+  }
+
+  goToInit(): void {
+    this.router.navigate(['/home'])
   }
 
 }
