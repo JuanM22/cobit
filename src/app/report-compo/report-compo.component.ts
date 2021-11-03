@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import { ReportService } from '../services/report.service';
+import { Report } from '../model/report';
 
 @Component({
   selector: 'app-report-compo',
@@ -9,23 +9,22 @@ import html2canvas from 'html2canvas';
 })
 export class ReportCompoComponent implements OnInit {
 
-  constructor() { }
+  commentary = 'Los procesos con nivel de madurez entre 0 y 2 deben mejorarse'
+  showPanel = true
+  report: Report = new Report()
+
+  constructor(private reportServices: ReportService) { }
 
   ngOnInit(): void {
+    this.getReport()
   }
 
-  generatePDF(): void {
-    let DATA = document.getElementById('pdf-content')
-    if(DATA != null) {
-      html2canvas(DATA).then(canvas => {
-        console.log(canvas)
-        let fileWidth = 8.5
-        let fileHeight = canvas.height * fileWidth / canvas.width        
-        const FILEURI = canvas.toDataURL('image/png')
-        let PDF = new jsPDF('p', 'in', 'letter')
-        PDF.addPage('PNG', 'p')
-        PDF.addImage(FILEURI, 'PNG', 1, 1, fileWidth - 2, fileHeight)
-        PDF.save('report.pdf')
+  getReport(): void {
+    const reportId = localStorage.getItem('reportId')
+    this.report.reportId = (reportId === null) ? 0 : parseInt(reportId);
+    if (this.report.reportId > 0) {
+      this.reportServices.getReport(this.report.reportId).subscribe(res => {
+        this.report = res;
       })
     }
   }

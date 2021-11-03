@@ -1,1 +1,63 @@
-<p>report-compo works!</p>
+<section class="report-container" id="report-info">
+    <mat-card class="report-card">
+        <mat-card-header>
+            <mat-card-title>
+                Reporte
+            </mat-card-title>
+            <button mat-raised-button color="warn" id="generate-report-btn" (click)="showPanel = true">Ver inventario de
+                activos</button>
+        </mat-card-header>
+        <div class="audit-basic-info">
+            <span id="bussiness-info">
+                <h4>Nombre de la empresa evaluada: </h4>
+                <p>{{report.bussiness_name}}</p>
+            </span>
+            <span id="auditor-info">
+                <h4>Nombre del auditor: </h4>
+                <p>{{report.auditor_name}}</p>
+            </span>
+        </div>
+        <mat-card-content>
+            <section *ngFor="let domain of report.domains" class="table-container" id={{domain.id}}>
+                <table>
+                    <thead class="table-header">
+                        <tr>
+                            <th class="process-name">Proceso</th>
+                            <th>Nivel de Madurez</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let process of domain.processes"
+                            [class]="process.average >= 0 && process.average < 3 ? 'improve-process-row' : 'success-row'">
+                            <td>{{process.name}}</td>
+                            <td>{{process.average}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <article class="comments">
+                    <h2>Comentarios</h2>
+                    <div class="commentary-content">
+                        <p>{{commentary}}</p>
+                    </div>
+                </article>
+            </section>
+        </mat-card-content>
+    </mat-card>
+</section>
+
+<section class="assets-inventory" *ngIf="showPanel" (click)="showPanel = false">
+    <table class="assets-table">
+        <thead>
+            <tr>
+                <th>Activo</th>
+                <th>Tipo de Activo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let asset of report.bussiness_assets">
+                <td>{{asset.assetName}}</td>
+                <td>{{asset.assetType}}</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

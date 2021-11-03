@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -9,9 +10,13 @@ export class NavMenuComponent implements OnInit {
 
    domainIndex = 0;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  goToReportGenerator(): void {
+    this.router.navigate(['/report'])
   }
 
 }

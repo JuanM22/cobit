@@ -22,7 +22,7 @@ export class BussinessAssetsComponent implements OnInit, IReport {
   displayedColumns: string[] = ['name', 'type', 'edit', 'delete']
   //////////
 
-  assetTypes: string[] = ['Fisicos', 'Red']
+  assetTypes: string[] = ['Activos de Información', 'Activos Físicos','ACtivos de Servicios de TI', 'Activos Humanos']
   assetName: string = ''
   assetType: string = ''
 
