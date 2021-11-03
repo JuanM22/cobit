@@ -27,15 +27,7 @@ export class WelcomeCompoComponent implements OnInit, IReport {
   }
 
   getReport(): void {
-    const reportId = localStorage.getItem('reportId')
-    this.reportId = (reportId === null) ? 0 : parseInt(reportId);
-    if (this.report.reportId > 0) {
-      this.reportServices.getReport(this.report.reportId).subscribe(res => this.report = res)
-    }
-    if(localStorage.getItem('reportId') != null) {
-
-      this.reportServices.getReport(this.reportId).subscribe(res => this.report = res)
-    }
+    this.reportServices.getReport(this.reportId).subscribe(res => this.report = res)
   }
 
   ngOnInit(): void {
