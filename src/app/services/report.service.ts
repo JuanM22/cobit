@@ -10,7 +10,7 @@ import { Report } from '../model/report';
 export class ReportService {
 
   private url: string = '';
-  private host: string = '192.168.0.19:';
+  private host: string = 'localhost:';
   private port: string = '8090';
 
   constructor(private http: HttpClient) { }

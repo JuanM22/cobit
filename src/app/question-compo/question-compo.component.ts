@@ -106,6 +106,7 @@ export class QuestionCompoComponent implements OnInit, OnChanges {
     const data = {
       title: modalTitle,
       objective: objective,
+      operation: operation,
       question: question,
       currentDomain: this.currentDomain
     }

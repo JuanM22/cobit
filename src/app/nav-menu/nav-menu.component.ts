@@ -19,4 +19,8 @@ export class NavMenuComponent implements OnInit {
     this.router.navigate(['/report'])
   }
 
+  goToAssetsPage(): void {
+    this.router.navigate(['/bussiness_assets'])
+  }
+
 }

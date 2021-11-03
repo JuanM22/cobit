@@ -22,9 +22,11 @@ export class BussinessAssetsComponent implements OnInit, IReport {
   displayedColumns: string[] = ['name', 'type', 'edit', 'delete']
   //////////
 
-  assetTypes: string[] = ['Activos de Información', 'Activos Físicos','ACtivos de Servicios de TI', 'Activos Humanos']
+  assetTypes: string[] = ['Activos de Información', 'Activos Físicos', 'Activos de Servicios de TI', 'Activos Humanos']
   assetName: string = ''
   assetType: string = ''
+  isEditing: boolean = false
+  assetIndex = -1
 
   report: Report = new Report()
 
@@ -51,12 +53,17 @@ export class BussinessAssetsComponent implements OnInit, IReport {
   startTest(): void {
     this.router.navigate(['/test'])
   }
+  
+  goToInit(): void {
+    this.router.navigate(['/home'])
+  }
 
   addAsset(): void {
     if (this.assetName != null && this.assetType != null) {
       this.report.bussiness_assets.push(new BussinessAsset(this.assetName, this.assetType))
       this.table?.renderRows();
-      this.assetName = this.assetType = '';
+      this.assetName = ''
+      this.assetType = 'none'
       this.updateReport()
     }
   }
@@ -69,11 +76,27 @@ export class BussinessAssetsComponent implements OnInit, IReport {
   }
 
   editAsset(bussinessAsset: BussinessAsset): void {
+    this.assetIndex = this.report.bussiness_assets.indexOf(bussinessAsset)
+    this.assetName = bussinessAsset.assetName
+    this.assetType = bussinessAsset.assetType
+    this.isEditing = true
   }
 
   drop(event: CdkDragDrop<BussinessAsset[]>) {
     moveItemInArray(this.report.bussiness_assets, event.previousIndex, event.currentIndex);
     this.table?.renderRows();
+  }
+
+  updateAsset(): void {
+    const asset = this.report.bussiness_assets[this.assetIndex]
+    asset.assetName = this.assetName
+    asset.assetType = this.assetType
+    this.report.bussiness_assets[this.assetIndex] = asset
+    this.updateReport()
+    this.isEditing = false
+    this.assetIndex = -1
+    this.assetName = ''
+    this.assetType = 'none'
   }
 
 }
